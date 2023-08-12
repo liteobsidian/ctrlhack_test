@@ -52,14 +52,13 @@ export const example = {
 		async send() {
 			this.isLoading = true
 			this.nonce++
-			this.base = ''
 			this.addLog({
 				type: 'Send',
 				value: `Request: { nonce: ${this.nonce}, price: ${this.price} qty: ${this.qty} amount: ${this.amount} },
-          Current state: ${JSON.stringify(this.getLocalStorageState())}`
+          Current state: ${JSON.stringify(await this.getLocalStorageState())}`
 			})
 			const result = await this.apiSave({nonce: this.nonce, price: this.price, qty: this.qty, amount: this.amount})
-			this.addLog({type: 'Response', value: `${JSON.stringify(result)} Current state: ${JSON.stringify(this.getLocalStorageState())}`})
+			this.addLog({type: 'Response', value: `${JSON.stringify(result)} Current state: ${JSON.stringify(await this.getLocalStorageState())}`})
 			this.isLoading = false
 		},
 		async setDefaults() {

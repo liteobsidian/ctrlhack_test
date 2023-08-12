@@ -16,13 +16,12 @@ const store = new Vuex.Store({
       commit('addNewLog', {type, value: value || 'not value'})
     },
     // Реализовал через Action, т.к. геттер кэшируется
-    getLocalStorageState() {
-      const nonce = +window.localStorage.nonce
-      const price = +window.localStorage.price
-      const qty = +window.localStorage.qty
-      const amount = +window.localStorage.amount
-      return {nonce, price, qty, amount}
-    },
+    getLocalStorageState: () => ({
+      nonce: JSON.parse(window.localStorage.getItem('nonce')) || 0,
+      price: JSON.parse(window.localStorage.getItem('price')) || 0,
+      qty: JSON.parse(window.localStorage.getItem('qty')) || 0,
+      amount: JSON.parse(window.localStorage.getItem('amount')) || 0
+    }),
     async apiSave({ commit }, {nonce, price, qty, amount}) {
       await delay(1000)
       if (!!(nonce % 2)) return { success: false }
